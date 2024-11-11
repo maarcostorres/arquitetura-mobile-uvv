@@ -5,17 +5,17 @@ export default function LoginScreen({ navigation }) {
   return (
     <ImageBackground source={require('../../assets/back.gif')} style={styles.background}>
       <View style={styles.container}>
-        <Text style={styles.title}>Bem-vindo ao nosso Consultório Online!</Text>
-        <TextInput placeholder="Email" style={styles.input} />
+        <Text style={styles.title}>Bem-vindo ao avaliador de Grupos do INOVAWEEK!</Text>
+        <TextInput placeholder="Matricula" style={styles.input} />
         <TextInput placeholder="Senha" style={styles.input} secureTextEntry />
         <View style={styles.buttonContainer}>
           <Button title="Entrar" onPress={() => navigation.navigate('Home')} />
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Registrar" onPress={() => navigation.navigate('Register')} />
+          <Button title="Cadastrar" onPress={() => navigation.navigate('Register')} />
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Esqueceu a senha?" onPress={() => navigation.navigate('ForgotPassword')} />
+          <Button title="Esqueceu sua senha?" onPress={() => navigation.navigate('ForgotPassword')} />
         </View>
       </View>
     </ImageBackground>

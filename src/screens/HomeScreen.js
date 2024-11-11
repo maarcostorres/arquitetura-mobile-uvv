@@ -2,28 +2,28 @@ import React from 'react';
 import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
-  const atendimentos = [
-    { medico: 'Dra. Indiamara Silva Torres', especialidade: 'Pediatra' },
-    { medico: 'Dr. Giovanni Milan Câmara Pinto', especialidade: 'Psiquiatra' },
-    { medico: 'Dr. Pedro Henrique Santos dos Reis', especialidade: 'Ortopedista' },
-    { medico: 'Dr. Andrei Alves', especialidade: 'Cardiologista' },
+  const avaliar = [
+    { grupo: 'Axis Team', assunto: 'Gerenciador de Gestão Empresarial' },
+    { grupo: 'Mentor Amigo', assunto: 'Ensino e Educação a distancia e online' },
+    { grupo: 'ODWHEELS', assunto: 'Acessibilidade Odontologica para baixo financeiro' },
+    { grupo: 'VadeIn', assunto: 'Serviço de Advocacia e burocratica a distancia' },
   ];
 
   return (
     <ImageBackground source={require('../../assets/back.gif')} style={styles.background}>
       <View style={styles.container}>
-        <Text style={styles.title}>Selecione um Médico para realizar um atendimento.</Text>
+        <Text style={styles.title}>Selecione um grupo para realizar.</Text>
 
-        {/* Exibindo os médicos e o botão Atendimento */}
-        {atendimentos.map((atendimento, index) => (
+        {/* Exibindo os grupos e o botão de avaliar */}
+        {avaliar.map((avaliador, index) => (
           <View key={index} style={styles.card}>
             <View style={styles.cardContent}>
               <View style={styles.textContainer}>
-                <Text style={styles.medico}>Médico: {atendimento.medico}</Text>
-                <Text style={styles.especialidade}>Especialidade: {atendimento.especialidade}</Text>
+                <Text style={styles.grupo}>Grupo: {avaliador.grupo}</Text>
+                <Text style={styles.assunto}>Tema: {avaliador.assunto}</Text>
               </View>
               <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Atendimento</Text>
+                <Text style={styles.buttonText}>Avaliações</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
   },
-  medico: {
+  grupo: {
     fontSize: 18,
     fontWeight: 'bold',
   },
-  especialidade: {
+  assunto: {
     fontSize: 16,
     color: '#555',
   },

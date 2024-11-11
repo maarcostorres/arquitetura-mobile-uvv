@@ -5,12 +5,13 @@ export default function RegisterScreen({ navigation }) {
   return (
     <ImageBackground source={require('../../assets/back.gif')} style={styles.background}>
       <View style={styles.container}>
-        <Text style={styles.title}>Faça seu Registro</Text>
+        <Text style={styles.title}>Faça seu Cadastro!</Text>
         <TextInput placeholder="Nome Completo" style={styles.input} />
+        <TextInput placeholder="Matricula" style={styles.input} />
         <TextInput placeholder="Email" style={styles.input} />
         <TextInput placeholder="Senha" style={styles.input} secureTextEntry />
         <View style={styles.buttonContainer}>
-          <Button title="Registrar" onPress={() => navigation.navigate('Login')} />
+          <Button title="Cadastrar" onPress={() => navigation.navigate('Login')} />
         </View>
       </View>
     </ImageBackground>
