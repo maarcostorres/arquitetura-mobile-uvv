@@ -1,16 +1,33 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import gruposData from './grupos.json'; // Certifique-se de que o caminho está correto
 
 export default function HomeScreen({ navigation }) {
-  const avaliar = [
-    { grupo: 'Axis Team', assunto: 'Gerenciador de Gestão Empresarial' },
-    { grupo: 'Mentor Amigo', assunto: 'Ensino e Educação a distancia e online' },
-    { grupo: 'ODWHEELS', assunto: 'Acessibilidade Odontologica para baixo financeiro' },
-    { grupo: 'VadeIn', assunto: 'Serviço de Advocacia e burocratica a distancia' },
-  ];
+  const [grupos, setGrupos] = useState([]); // Armazena todos os grupos
+  const [filteredGrupos, setFilteredGrupos] = useState([]); // Armazena os grupos filtrados
+  const [search, setSearch] = useState(''); // Armazena o termo de pesquisa
+
+  useEffect(() => {
+    // Carrega os grupos do JSON e define o estado inicial
+    setGrupos(gruposData);
+    setFilteredGrupos(gruposData); // Inicialmente, todos os grupos são exibidos
+  }, []);
+
+  const handleSearch = (text) => {
+    setSearch(text);
+
+    // Filtra os grupos com base no texto de pesquisa
+    if (text === '') {
+      setFilteredGrupos(grupos); // Se a barra de pesquisa estiver vazia, mostra todos os grupos
+    } else {
+      const filtered = grupos.filter((grupo) =>
+        grupo.grupo.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredGrupos(filtered);
+    }
+  };
 
   const handleLogout = () => {
-    // Navega para a tela Login e reseta a pilha de navegação
     navigation.reset({
       index: 0,
       routes: [{ name: 'Login' }],
@@ -22,20 +39,31 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.container}>
         <Text style={styles.title}>Selecione um grupo para realizar.</Text>
 
-        {/* Exibindo os grupos e o botão de avaliar */}
-        {avaliar.map((avaliador, index) => (
-          <View key={index} style={styles.card}>
-            <View style={styles.cardContent}>
-              <View style={styles.textContainer}>
-                <Text style={styles.grupo}>Grupo: {avaliador.grupo}</Text>
-                <Text style={styles.assunto}>Tema: {avaliador.assunto}</Text>
-              </View>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Avaliações</Text>
+        {/* Barra de pesquisa */}
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Pesquisar grupos..."
+          value={search}
+          onChangeText={handleSearch}
+        />
+
+        {/* Exibindo os grupos filtrados como botões */}
+        {filteredGrupos.length === 0 ? (
+          <Text style={styles.noResultsText}>Nenhum grupo encontrado.</Text>
+        ) : (
+          <FlatList
+            data={filteredGrupos}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.groupButton}
+                onPress={() => navigation.navigate('DetalhesGrupo', { grupoId: item.id, grupoNome: item.grupo })}
+              >
+                <Text style={styles.groupButtonText}>{item.grupo}</Text>
               </TouchableOpacity>
-            </View>
-          </View>
-        ))}
+            )}
+          />
+        )}
 
         <View style={styles.buttonContainer}>
           <Button title="Sair" onPress={handleLogout} />
@@ -67,43 +95,36 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  card: {
+  searchBar: {
     width: '100%',
-    backgroundColor: '#fffff',
-    padding: 15,
-    marginVertical: 10,
-    borderRadius: 8,
-    borderColor: '#ddd',
+    padding: 10,
+    borderColor: 'rgba(128, 128, 128, 0.5)',
     borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#fff',
   },
-  cardContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  groupButton: {
+    width: '100%',
+    padding: 15,
+    marginVertical: 5,
+    backgroundColor: '#007BFF',
+    borderRadius: 8,
     alignItems: 'center',
   },
-  textContainer: {
-    flex: 1,
-  },
-  grupo: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  assunto: {
-    fontSize: 16,
-    color: '#555',
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-  },
-  buttonText: {
+  groupButtonText: {
     color: '#fff',
+    fontSize: 18,
     fontWeight: 'bold',
   },
   buttonContainer: {
     marginVertical: 10,
     width: '100%',
+  },
+  noResultsText: {
+    fontSize: 16,
+    color: '#555',
+    marginTop: 20,
+    textAlign: 'center',
   },
 });

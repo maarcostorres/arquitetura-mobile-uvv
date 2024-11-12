@@ -1,0 +1,23 @@
+[
+    {
+      "id": "1",
+      "nome": "Axis Team",
+      "descricao": "Gerenciador de Gestão Empresarial"
+    },
+    {
+      "id": "2",
+      "nome": "Mentor Amigo",
+      "descricao": "Ensino e Educação a Distância"
+    },
+    {
+      "id": "3",
+      "nome": "ODWHEELS",
+      "descricao": "Acessibilidade Odontológica"
+    },
+    {
+      "id": "4",
+      "nome": "VadeIn",
+      "descricao": "Serviço de Advocacia a Distância"
+    }
+  ]
+  
