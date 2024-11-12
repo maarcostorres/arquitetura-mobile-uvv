@@ -1,4 +1,4 @@
-# Prova CC4Mc - Desenvolvimento Mobile
+# Projeto 2 Bimestre CC4Mc - Desenvolvimento Mobile
 
 ## Informações
 
