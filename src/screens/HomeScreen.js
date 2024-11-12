@@ -9,6 +9,14 @@ export default function HomeScreen({ navigation }) {
     { grupo: 'VadeIn', assunto: 'Serviço de Advocacia e burocratica a distancia' },
   ];
 
+  const handleLogout = () => {
+    // Navega para a tela Login e reseta a pilha de navegação
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+  };
+
   return (
     <ImageBackground source={require('../../assets/back.gif')} style={styles.background}>
       <View style={styles.container}>
@@ -30,7 +38,7 @@ export default function HomeScreen({ navigation }) {
         ))}
 
         <View style={styles.buttonContainer}>
-          <Button title="Sair" onPress={() => navigation.navigate('Login')} />
+          <Button title="Sair" onPress={handleLogout} />
         </View>
       </View>
     </ImageBackground>
